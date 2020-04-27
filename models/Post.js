@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataType) => {
-  const Usuario = sequelize.define(
-    "Usuario",
+  const Post = sequelize.define(
+    "Post",
     {
       id: {
         type: DataType.INTEGER,
@@ -8,24 +8,33 @@ module.exports = (sequelize, DataType) => {
         autoIncrement: true,
         allowNull: false,
       },
-      nome: {
+      texto: {
         type: DataType.STRING,
         allowNull: false,
       },
-      email: {
+      img: {
         type: DataType.STRING,
         allowNull: false,
       },
-      senha: {
-        type: DataType.STRING,
+      usuarios_id: {
+        type: DataType.INTEGER,
         allowNull: false,
+        references: {
+          model: "usuarios",
+          key: "id",
+        },
+      },
+      n_likes: {
+        type: DataType.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
     },
     {
-      tableName: "usuarios",
+      tableName: "posts",
       timestamps: false,
     }
   );
 
-  return Usuario;
+  return Post;
 };
