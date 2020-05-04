@@ -18,7 +18,7 @@ app.use(
     secret: "fake-instagram",
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 3600000 },
+    cookie: { maxAge: 36000000 },
   })
 );
 app.use(logger("dev"));

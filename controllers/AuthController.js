@@ -1,4 +1,4 @@
-const { Usuario } = require("../models");
+const { Comentario, Usuario, Post } = require("../models");
 const bcrypt = require("bcrypt");
 const AuthController = {
   showLogin: (req, res) => {
@@ -9,8 +9,25 @@ const AuthController = {
     res.render("auth/register");
   },
 
-  showHome: (req, res) => {
-    res.render("index");
+  showHome: async (req, res) => {
+    let posts = await Post.findAll({
+      include: [
+        { model: Comentario, as: "comentarios", include: "usuario" },
+        "usuario",
+      ],
+    });
+
+    // include: ["usuario"]
+    // let comentarios = await Comentario.findAll({
+    //   include: ["post", "usuario"],
+    // });
+    // .then((data) => {
+    //   let posts = data.map((u) => u.toJSON());
+
+    // });
+    // console.log(posts);
+    // return res.send(posts);
+    res.render("index", { posts });
   },
 
   login: async (req, res) => {

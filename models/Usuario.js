@@ -28,4 +28,15 @@ let Usuario = (sequelize, DataTypes) => {
   );
 };
 
+Usuario.associate = (models) => {
+  Usuario.hasMany(models.Comentario, {
+    foreignKey: "usuarios_id",
+    as: "comentarios",
+  });
+  Usuario.hasMany(models.Post, {
+    foreignKey: "usuarios_id",
+    as: "posts",
+  });
+};
+
 module.exports = Usuario;

@@ -15,18 +15,18 @@ module.exports = (sequelize, DataType) => {
       usuarios_id: {
         type: DataType.INTEGER,
         allowNull: false,
-        references: {
-          model: "usuarios",
-          key: "id",
-        },
+        // references: {
+        //   model: "usuarios",
+        //   key: "id",
+        // },
       },
       posts_id: {
         type: DataType.INTEGER,
         allowNull: false,
-        references: {
-          model: "posts",
-          key: "id",
-        },
+        // references: {
+        //   model: "posts",
+        //   key: "id",
+        // },
       },
     },
     {
@@ -35,5 +35,12 @@ module.exports = (sequelize, DataType) => {
     }
   );
 
+  Comentario.associate = (models) => {
+    Comentario.belongsTo(models.Post, { foreignKey: "posts_id", as: "post" });
+    Comentario.belongsTo(models.Usuario, {
+      foreignKey: "usuarios_id",
+      as: "usuario",
+    });
+  };
   return Comentario;
 };
